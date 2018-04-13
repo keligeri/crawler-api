@@ -1,19 +1,15 @@
-package com.keli.crawler.core.api.service.selector;
+package com.keli.crawler.core.api.selector;
 
 import com.keli.crawler.core.api.service.validator.SelectorValidator;
 import java.util.HashMap;
 import java.util.Map;
-import lombok.Getter;
 
 public class TextSelector implements Selector {
 
-  @Getter
+  private final SelectorValidator selectorValidator = new SelectorValidator();
+
   private Class<?> classType;
-
-  @Getter
   private Map<String, String> selectors = new HashMap<>();
-
-  private SelectorValidator selectorValidator;
 
   public TextSelector(Class classType) {
     this.classType = classType;
@@ -21,8 +17,18 @@ public class TextSelector implements Selector {
 
   @Override
   public void addSelector(String fieldName, String selector) {
-//    selectorValidator.validateSelector(fieldName, selector);
+    selectorValidator.validateSelector(fieldName, selector);
 
     selectors.put(fieldName, selector);
+  }
+
+  @Override
+  public Map<String, String> getSelectors() {
+    return selectors;
+  }
+
+  @Override
+  public Class<?> getClassType() {
+    return classType;
   }
 }
