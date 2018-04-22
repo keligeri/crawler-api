@@ -5,9 +5,16 @@
  - without popular dependencies, only pure java.
  - And practice API writing. :)
  
+## MVP1:
+  - Define package structure and implement basic logic.
+  - Use only one specific implementation, without Generic!
+  - Handle possible exceptions and errors.
+  - Define different modules:
+    - Crawler-core
+    - Selector
+    - Parser
+
+##MVP2:
+
+  - 
  
-## Possible feature:
- - Different modules
-      - JSOUP connect module
-      - Selector module
-      - Parser module
