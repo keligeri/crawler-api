@@ -4,13 +4,13 @@ import com.keli.crawler.core.api.service.exception.InvalidFieldException;
 
 public class FieldValidator {
 
-  public static void validateFields(String fieldName) {
+  public static void validateField(String fieldName) {
     if (fieldName == null || fieldName.length() <= 1) {
       throw new InvalidFieldException("FieldName must be a valid, non empty String!");
     }
   }
 
-  public static void validateFields(Class<?> classType, String fieldName) {
+  public static void validateClassHasField(Class<?> classType, String fieldName) {
     try {
       classType.getDeclaredField(fieldName);
     } catch (NoSuchFieldException e) {
