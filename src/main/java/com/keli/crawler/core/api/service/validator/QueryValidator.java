@@ -2,13 +2,9 @@ package com.keli.crawler.core.api.service.validator;
 
 import com.keli.crawler.core.api.service.exception.InvalidSelectorException;
 
-public class SelectorValidator {
+public class QueryValidator {
 
-  public void validateSelector(String fieldName, String selector) {
-    if (fieldName == null || fieldName.length() <= 1) {
-      throw new InvalidSelectorException("FieldName must be a valid, non empty String!");
-    }
-
+  public static void validateQuery(String selector) {
     if (selector == null || selector.length() <= 3) {
       throw new InvalidSelectorException("FieldSelector must be a valid, non empty String!");
     }
