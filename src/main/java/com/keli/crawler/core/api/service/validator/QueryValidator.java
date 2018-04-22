@@ -10,7 +10,7 @@ public class SelectorValidator {
     }
 
     if (selector == null || selector.length() <= 3) {
-      throw new InvalidSelectorException("Selector must be a valid, non empty String!");
+      throw new InvalidSelectorException("FieldSelector must be a valid, non empty String!");
     }
   }
 }

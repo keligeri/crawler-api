@@ -1,12 +1,10 @@
-package com.keli.crawler.core.api.selector;
+package com.keli.crawler.core.api.selector.field;
 
 import java.util.Map;
 
-public interface Selector {
+public interface FieldSelector {
 
-  void addSelector(String fieldName, String selector);
+  void addQuery(String fieldName, String selector);
 
-  Map<String, String> getSelectors();
-
-  Class<?> getClassType();
+  Map<String, String> getQueries();
 }

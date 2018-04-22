@@ -1,34 +1,24 @@
-package com.keli.crawler.core.api.selector;
+package com.keli.crawler.core.api.selector.field;
 
-import com.keli.crawler.core.api.service.validator.SelectorValidator;
+import com.keli.crawler.core.api.service.validator.QueryValidator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TextSelector implements Selector {
+public class TextFieldSelector implements FieldSelector {
 
-  private final SelectorValidator selectorValidator = new SelectorValidator();
+  private final QueryValidator queryValidator = new QueryValidator();
 
-  private Class<?> classType;
-  private Map<String, String> selectors = new HashMap<>();
+  private Map<String, String> queries = new HashMap<>();
 
-  public TextSelector(Class classType) {
-    this.classType = classType;
+  @Override
+  public void addQuery(String fieldName, String cssQueries) {
+    queryValidator.validateSelector(fieldName, cssQueries);
+
+    queries.put(fieldName, cssQueries);
   }
 
   @Override
-  public void addSelector(String fieldName, String selector) {
-    selectorValidator.validateSelector(fieldName, selector);
-
-    selectors.put(fieldName, selector);
-  }
-
-  @Override
-  public Map<String, String> getSelectors() {
-    return selectors;
-  }
-
-  @Override
-  public Class<?> getClassType() {
-    return classType;
+  public Map<String, String> getQueries() {
+    return queries;
   }
 }
