@@ -1,6 +1,6 @@
 package com.keli.crawler.core.api.service.parser.strategy;
 
-import com.keli.crawler.core.api.selector.Selector;
+import com.keli.crawler.core.api.selector.field.FieldSelector;
 import com.keli.crawler.core.api.service.pagination.strategy.PaginationStrategy;
 import lombok.AllArgsConstructor;
 
@@ -8,11 +8,11 @@ import lombok.AllArgsConstructor;
 public class HtmlParserStrategy implements ParserStrategy {
 
   private PaginationStrategy paginationStrategy;
-  private Selector itemSelector;
+  private FieldSelector itemFieldSelector;
 
   @Override
-  public Selector getItemSelector() {
-    return itemSelector;
+  public FieldSelector getItemFieldSelector() {
+    return itemFieldSelector;
   }
 
   @Override

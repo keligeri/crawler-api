@@ -1,8 +1,10 @@
 package com.keli.crawler.core.api.service.parser;
 
-public interface Parser {
+import java.util.List;
 
-  void parseItems();
+public interface Parser<T> {
+
+  List<T> parseItems();
 
   void saveItems();
 }

@@ -1,11 +1,11 @@
 package com.keli.crawler.core.api.service.parser.strategy;
 
-import com.keli.crawler.core.api.selector.Selector;
+import com.keli.crawler.core.api.selector.field.FieldSelector;
 import com.keli.crawler.core.api.service.pagination.strategy.PaginationStrategy;
 
 public interface ParserStrategy {
 
-  Selector getItemSelector();
+  FieldSelector getItemFieldSelector();
 
   PaginationStrategy getPaginationStrategy();
 }
