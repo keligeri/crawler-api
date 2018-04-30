@@ -1,27 +1,18 @@
 package com.keli.crawler.core.api.selector.field;
 
-import com.keli.crawler.core.api.service.exception.InvalidFieldException;
-import java.util.HashMap;
-import java.util.Map;
+import lombok.Getter;
+import org.jsoup.nodes.Element;
 
-public abstract class FieldSelector {
+@Getter
+public abstract class FieldSelector<T> {
 
-  Map<String, String> queries = new HashMap<>();
+  String fieldName;
+  String cssQuery;
 
-  public abstract void addQuery(String fieldName, String cssQuery);
-
-  public String getQuery(String fieldName) {
-    // separate it to a validator class?
-    if (fieldName == null) {
-      throw new InvalidFieldException("Invalid fieldName, field cannot be null!");
-    } else if (queries.size() <= 0) {
-      throw new IllegalStateException("Queries size is 0!");
-    }
-
-    return queries.get(fieldName);
+  FieldSelector(String fieldName, String cssQuery) {
+    this.fieldName = fieldName;
+    this.cssQuery = cssQuery;
   }
 
-  public Map<String, String> getQueries() {
-    return  queries;
-  }
+  public abstract T execute(Element element);
 }

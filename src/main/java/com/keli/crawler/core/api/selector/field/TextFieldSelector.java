@@ -1,15 +1,14 @@
 package com.keli.crawler.core.api.selector.field;
 
-import com.keli.crawler.core.api.service.validator.FieldValidator;
-import com.keli.crawler.core.api.service.validator.QueryValidator;
+import org.jsoup.nodes.Element;
 
-public class TextFieldSelector extends FieldSelector {
+public class TextFieldSelector extends FieldSelector<String> {
 
-  @Override
-  public void addQuery(String fieldName, String cssQuery) {
-    FieldValidator.validateField(fieldName);
-    QueryValidator.validateQuery(cssQuery);
+  public TextFieldSelector(String fieldName, String cssQuery) {
+    super(fieldName, cssQuery);
+  }
 
-    queries.put(fieldName, cssQuery);
+  public String execute(Element element) {
+    return element.select(cssQuery).text();
   }
 }
