@@ -4,7 +4,7 @@ import com.keli.crawler.core.api.service.pagination.selector.PaginationSelector;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class HtmlPaginationStrategy implements PaginationStrategy{
+public class HtmlPaginationStrategy implements PaginationStrategy {
 
   public String rootUrl;
   private String searchResultUrl;
