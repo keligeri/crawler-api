@@ -1,6 +1,5 @@
 package com.keli.crawler.core.api.service.parser;
 
-import com.keli.crawler.core.api.example.domain.House;
 import com.keli.crawler.core.api.selector.item.HtmlItemSelector;
 import com.keli.crawler.core.api.service.exception.FailedConnectionException;
 import com.keli.crawler.core.api.service.executor.ParserExecutor;
@@ -12,19 +11,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 @AllArgsConstructor
-public class HtmlParser implements Parser {
+public class HtmlParser<T> implements Parser {
 
   private HtmlPaginationStrategy paginationStrategy;
   private HtmlItemSelector itemSelector;
 
   @Override
-  public List<House> parseItems() {
+  public List<T> parseItems() {
     Document document = getDocument();
+    ParserExecutor<T> parserExecutor = new ParserExecutor<>(document, itemSelector);
 
-    ParserExecutor parserExecutor = new ParserExecutor(document, itemSelector);
-    List<House> houses = parserExecutor.executeSelector();
-
-    return houses;
+    return parserExecutor.executeSelector();
   }
 
   @Override
