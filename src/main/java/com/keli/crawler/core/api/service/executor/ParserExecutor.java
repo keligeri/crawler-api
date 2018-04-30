@@ -1,8 +1,8 @@
 package com.keli.crawler.core.api.service.executor;
 
-import com.keli.crawler.core.api.example.domain.House;
 import com.keli.crawler.core.api.selector.field.FieldSelector;
 import com.keli.crawler.core.api.selector.item.HtmlItemSelector;
+import com.keli.crawler.core.api.service.factory.InstanceFactory;
 import com.keli.crawler.core.api.service.utils.InstanceSetter;
 import com.keli.crawler.core.api.service.validator.FieldValidator;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ParserExecutor {
+public class ParserExecutor<T> {
 
   private Elements items;
 
-  private List<House> result;
+  private List<T> result;
   private Document document;
   private HtmlItemSelector itemSelector;
 
@@ -25,7 +25,7 @@ public class ParserExecutor {
     this.itemSelector = itemSelector;
   }
 
-  public List<House> executeSelector() {
+  public List<T> executeSelector() {
     validate();
     fillItems();
     fillResult();
@@ -44,17 +44,21 @@ public class ParserExecutor {
   }
 
   private void fillResult() {
-    List<FieldSelector> selectors = itemSelector.getSelectors();
     for (Element element : items) {
-      House object = new House();
-
-      for (FieldSelector selector : selectors) {
-        Object fieldContent = selector.execute(element);
-        InstanceSetter.setField(object, selector.getFieldName(), fieldContent);
-      }
-
+      T object = instantiateObject(element);
       result.add(object);
     }
   }
 
+  private T instantiateObject(Element element) {
+    T object = InstanceFactory.newInstance((Class<T>) itemSelector.getClassType());
+    List<FieldSelector> selectors = itemSelector.getSelectors();
+
+    for (FieldSelector selector : selectors) {
+      Object fieldContent = selector.execute(element);
+      InstanceSetter.setField(object, selector.getFieldName(), fieldContent);
+    }
+
+    return object;
+  }
 }
