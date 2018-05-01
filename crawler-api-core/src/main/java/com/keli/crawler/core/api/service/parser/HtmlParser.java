@@ -11,7 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 @AllArgsConstructor
-public class HtmlParser<T> implements Parser {
+public class HtmlParser<T> implements Parser<T> {
 
   private HtmlPaginationStrategy paginationStrategy;
   private HtmlItemSelector itemSelector;

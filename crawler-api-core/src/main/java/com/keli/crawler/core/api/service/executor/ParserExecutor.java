@@ -1,8 +1,8 @@
 package com.keli.crawler.core.api.service.executor;
 
 import com.keli.crawler.core.api.selector.field.FieldSelector;
-import com.keli.crawler.core.api.selector.item.HtmlItemSelector;
 import com.keli.crawler.core.api.factory.InstanceFactory;
+import com.keli.crawler.core.api.selector.item.ItemSelector;
 import com.keli.crawler.core.api.utils.InstanceSetter;
 import com.keli.crawler.core.api.validator.FieldValidator;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ public class ParserExecutor<T> {
 
   private List<T> result;
   private Document document;
-  private HtmlItemSelector itemSelector;
+  private ItemSelector itemSelector;
 
-  public ParserExecutor(Document document, HtmlItemSelector itemSelector) {
+  public ParserExecutor(Document document, ItemSelector itemSelector) {
     this.result = new ArrayList<>();
     this.document = document;
     this.itemSelector = itemSelector;
