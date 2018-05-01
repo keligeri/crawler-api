@@ -6,21 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 
-@Getter
-public class HtmlItemSelector implements ItemSelector {
-
-  private Class<?> classType;
-  private String tagCssQuery;
-  private List<FieldSelector> selectors;
+public class HtmlItemSelector extends ItemSelector {
 
   public HtmlItemSelector(Class<?> classType, String tagCssQuery) {
-    this.classType = classType;
-    this.tagCssQuery = tagCssQuery;
-    this.selectors = new ArrayList<>();
+    super(classType, tagCssQuery);
   }
 
+  @Override
   public void addSelector(FieldSelector fieldSelector) {
     QueryValidator.validateQuery(fieldSelector.getCssQuery());
-    selectors.add(fieldSelector);
+    getSelectors().add(fieldSelector);
   }
 }
