@@ -1,2 +1,7 @@
 rootProject.name = 'crawler-api'
 
+include 'crawler-api-selector'
+include 'crawler-api-core'
+include 'crawler-api-pagination'
+include 'crawler-api-utils'
+include 'crawler-api-example'
