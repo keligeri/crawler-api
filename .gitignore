@@ -4,7 +4,4 @@
 # Gradle
 .gradle/**
 **/build/
-out/**
-
-# Demo-app
-src/main/java/com/keli/crawler/core/api/example
+**/out
