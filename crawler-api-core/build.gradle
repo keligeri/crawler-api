@@ -1,0 +1,5 @@
+dependencies {
+    compile project (':crawler-api-selector')
+    compile project (':crawler-api-pagination')
+    compile project (':crawler-api-utils')
+}
