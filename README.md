@@ -9,12 +9,11 @@
   - Define package structure and implement basic logic.
   - Use only one specific implementation, without Generic!
   - Handle possible exceptions and errors.
-  - Define different modules:
-    - Crawler-core
-    - Selector
-    - Parser
+  - Define different modules
 
-## MVP2:
+### Refactor opportunities:
+  1. FieldSelector#execute has to know about JSOUP?
+     - It's less generic, harder to modify crawler implementation, because selector module know 
+     about JSOUP
 
-  - 
  
