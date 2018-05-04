@@ -1,7 +1,7 @@
 package com.keli.crawler.core.api.service.executor;
 
-import com.keli.crawler.core.api.selector.field.FieldSelector;
 import com.keli.crawler.core.api.factory.InstanceFactory;
+import com.keli.crawler.core.api.selector.field.FieldSelector;
 import com.keli.crawler.core.api.selector.item.ItemSelector;
 import com.keli.crawler.core.api.utils.InstanceSetter;
 import com.keli.crawler.core.api.validator.FieldValidator;
@@ -17,9 +17,9 @@ public class ParserExecutor<T> {
 
   private List<T> result;
   private Document document;
-  private ItemSelector itemSelector;
+  private ItemSelector<T> itemSelector;
 
-  public ParserExecutor(Document document, ItemSelector itemSelector) {
+  public ParserExecutor(Document document, ItemSelector<T> itemSelector) {
     this.result = new ArrayList<>();
     this.document = document;
     this.itemSelector = itemSelector;
@@ -34,13 +34,13 @@ public class ParserExecutor<T> {
   }
 
   private void validate() {
-    Class<?> referenceType = itemSelector.getClassType();
+    Class<T> referenceType = itemSelector.getClassType();
     itemSelector.getSelectors()
         .forEach(s -> FieldValidator.validateClassHasField(referenceType, s.getFieldName()));
   }
 
   private void fillItems() {
-    items = document.select(itemSelector.getTagCssQuery());
+    items = document.select(itemSelector.getCssQuery());
   }
 
   private void fillResult() {
@@ -51,10 +51,9 @@ public class ParserExecutor<T> {
   }
 
   private T instantiateObject(Element element) {
-    T object = InstanceFactory.newInstance((Class<T>) itemSelector.getClassType());
-    List<FieldSelector> selectors = itemSelector.getSelectors();
+    T object = InstanceFactory.newInstance(itemSelector.getClassType());
 
-    for (FieldSelector selector : selectors) {
+    for (FieldSelector selector : itemSelector.getSelectors()) {
       Object fieldContent = selector.execute(element);
       InstanceSetter.setField(object, selector.getFieldName(), fieldContent);
     }
