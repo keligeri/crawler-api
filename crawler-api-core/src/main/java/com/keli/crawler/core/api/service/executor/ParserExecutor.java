@@ -54,10 +54,18 @@ public class ParserExecutor<T> {
     T object = InstanceFactory.newInstance(itemSelector.getClassType());
 
     for (FieldSelector selector : itemSelector.getSelectors()) {
-      Object fieldContent = selector.execute(element);
-      InstanceSetter.setField(object, selector.getFieldName(), fieldContent);
+      String content = element.select(selector.getCssQuery()).text();
+      InstanceSetter.setField(object, selector.getFieldName(), content);
     }
 
     return object;
   }
 }
+
+
+
+
+
+
+
+
