@@ -1,10 +1,10 @@
 package com.keli.crawler.core.api.pagination.selector;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@Builder
 @Getter
+@AllArgsConstructor
 public class PaginationSelector {
 
   private String paginationTagSelector;

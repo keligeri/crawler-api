@@ -1,9 +1,9 @@
 package com.keli.crawler.core.api.service.parser;
 
+import com.keli.crawler.core.api.pagination.strategy.HtmlPaginationStrategy;
 import com.keli.crawler.core.api.selector.item.HtmlItemSelector;
 import com.keli.crawler.core.api.service.exception.FailedConnectionException;
 import com.keli.crawler.core.api.service.executor.ParserExecutor;
-import com.keli.crawler.core.api.pagination.strategy.HtmlPaginationStrategy;
 import java.io.IOException;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import org.jsoup.nodes.Document;
 public class HtmlParser<T> implements Parser<T> {
 
   private HtmlPaginationStrategy paginationStrategy;
-  private HtmlItemSelector itemSelector;
+  private HtmlItemSelector<T> itemSelector;
 
   @Override
   public List<T> parseItems() {

@@ -4,26 +4,26 @@ import com.keli.crawler.core.api.selector.field.FieldSelector;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ItemSelector {
+public abstract class ItemSelector<T> {
 
-  private Class<?> classType;
-  private String tagCssQuery;
+  private Class<T> classType;
+  private String cssQuery;
   private List<FieldSelector> selectors;
 
-  ItemSelector(Class<?> classType, String tagCssQuery) {
+  ItemSelector(Class<T> classType, String tagCssQuery) {
     this.classType = classType;
-    this.tagCssQuery = tagCssQuery;
+    this.cssQuery = tagCssQuery;
     this.selectors = new ArrayList<>();
   }
 
   public abstract void addSelector(FieldSelector fieldSelector);
 
-  public Class<?> getClassType() {
+  public Class<T> getClassType() {
     return classType;
   }
 
-  public String getTagCssQuery() {
-    return tagCssQuery;
+  public String getCssQuery() {
+    return cssQuery;
   }
 
   public List<FieldSelector> getSelectors() {
