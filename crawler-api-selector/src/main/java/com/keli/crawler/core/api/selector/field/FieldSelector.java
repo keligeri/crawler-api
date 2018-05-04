@@ -1,10 +1,9 @@
 package com.keli.crawler.core.api.selector.field;
 
 import lombok.Getter;
-import org.jsoup.nodes.Element;
 
 @Getter
-public abstract class FieldSelector<T> {
+public abstract class FieldSelector {
 
   String fieldName;
   String cssQuery;
@@ -13,6 +12,4 @@ public abstract class FieldSelector<T> {
     this.fieldName = fieldName;
     this.cssQuery = cssQuery;
   }
-
-  public abstract T execute(Element element);
 }
