@@ -1,5 +1,7 @@
 package com.keli.crawler.core.api.service.parserexecutor;
 
+import static java.util.stream.Collectors.toList;
+
 import com.keli.crawler.core.api.factory.InstanceFactory;
 import com.keli.crawler.core.api.pagination.selector.PaginationSelector;
 import com.keli.crawler.core.api.pagination.strategy.PaginationStrategy;
@@ -32,15 +34,15 @@ public class JsoupParser<T> implements Parser<T> {
     this.paginationStrategy = paginationStrategy;
   }
 
-  public List<T> executeSelector() {
+  public List<T> executeSelectors() {
     validate();
 
     String nextUrl = paginationStrategy.getSearchResultUrl();
-    while (!isNextUrlIsEqualWithRootUrl(nextUrl)) {   // ugly
+    while (!isEqualWithRootUrl(nextUrl)) {   // TODO: ugly
       Document currentDocument = getDocument(nextUrl);
       Elements items = getElements(currentDocument);
 
-      List<T> currentResult = fillResult(items);
+      List<T> currentResult = getResult(items);
       result.addAll(currentResult);
 
       nextUrl = getNextPageUrl(currentDocument);
@@ -49,14 +51,14 @@ public class JsoupParser<T> implements Parser<T> {
     return result;
   }
 
-  private boolean isNextUrlIsEqualWithRootUrl(String nextUrl) {
-    return nextUrl.equals(paginationStrategy.getRootUrl());
-  }
-
   private void validate() {
     Class<T> referenceType = itemSelector.getClassType();
     itemSelector.getSelectors()
         .forEach(s -> FieldValidator.validateClassHasField(referenceType, s.getFieldName()));
+  }
+
+  private boolean isEqualWithRootUrl(String nextUrl) {
+    return nextUrl.equals(paginationStrategy.getRootUrl());
   }
 
   private Document getDocument(String rootUrl) {
@@ -71,15 +73,10 @@ public class JsoupParser<T> implements Parser<T> {
     return document.select(itemSelector.getCssQuery());
   }
 
-  private List<T> fillResult(Elements elements) {
-    List<T> result = new ArrayList<>();
-
-    for (Element element : elements) {
-      T object = instantiateObject(element);
-      result.add(object);
-    }
-
-    return result;
+  private List<T> getResult(Elements elements) {
+    return elements.stream()
+        .map(this::instantiateObject)
+        .collect(toList());
   }
 
   private T instantiateObject(Element element) {
