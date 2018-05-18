@@ -1,4 +1,4 @@
-package com.keli.crawler.core.api.service.parserexecutor;
+package com.keli.crawler.core.api.service.parser;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.keli.crawler.core.api.service.parser;
+package com.keli.crawler.core.api.service.executor;
 
-import com.keli.crawler.core.api.service.parserexecutor.Parser;
+import com.keli.crawler.core.api.service.parser.Parser;
 import java.util.List;
 import lombok.AllArgsConstructor;
 
