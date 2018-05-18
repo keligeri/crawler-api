@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface Parser<T> {
 
-  List<T> executeSelector();
+  List<T> executeSelectors();
 }

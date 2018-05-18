@@ -11,7 +11,7 @@ public class HtmlExecutor<T> implements Executor<T> {
 
   @Override
   public List<T> parseItems() {
-    return selectorParser.executeSelector();
+    return selectorParser.executeSelectors();
   }
 
   @Override
