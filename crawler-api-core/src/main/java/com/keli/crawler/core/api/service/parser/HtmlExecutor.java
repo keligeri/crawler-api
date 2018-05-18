@@ -1,13 +1,13 @@
 package com.keli.crawler.core.api.service.parser;
 
-import com.keli.crawler.core.api.service.parserexecutor.SelectorParser;
+import com.keli.crawler.core.api.service.parserexecutor.Parser;
 import java.util.List;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class HtmlParser<T> implements Parser<T> {
+public class HtmlExecutor<T> implements Executor<T> {
 
-  private SelectorParser<T> selectorParser;
+  private Parser<T> selectorParser;
 
   @Override
   public List<T> parseItems() {
