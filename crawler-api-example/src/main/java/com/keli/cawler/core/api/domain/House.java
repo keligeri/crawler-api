@@ -13,6 +13,6 @@ import lombok.ToString;
 @ToString
 public class House {
 
-  public String name;
-  private double price;
+  private String name;
+  private int price;
 }
