@@ -7,13 +7,8 @@
  
 ## MVP1:
   - Define package structure and implement basic logic.
-  - Use only one specific implementation, without Generic!
+  - Use only one specific implementation, with generic!
   - Handle possible exceptions and errors.
   - Define different modules
-
-### Refactor opportunities:
-  1. FieldSelector#execute has to know about JSOUP?
-     - It's less generic, harder to modify crawler implementation, because selector module know 
-     about JSOUP
-
- 
+  - Add javadoc
+  - Cover code with unit test
