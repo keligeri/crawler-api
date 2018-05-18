@@ -16,18 +16,18 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class JsoupParserExecutor<T> implements SelectorParser<T> {
+public class JsoupParser<T> implements Parser<T> {
 
   private PaginationStrategy paginationStrategy;
   private ItemSelector<T> itemSelector;
   private List<T> result;
 
-  public JsoupParserExecutor(ItemSelector<T> itemSelector) {
+  public JsoupParser(ItemSelector<T> itemSelector) {
     this.result = new ArrayList<>();
     this.itemSelector = itemSelector;
   }
 
-  public JsoupParserExecutor(PaginationStrategy paginationStrategy, ItemSelector<T> itemSelector) {
+  public JsoupParser(PaginationStrategy paginationStrategy, ItemSelector<T> itemSelector) {
     this(itemSelector);
     this.paginationStrategy = paginationStrategy;
   }
@@ -36,8 +36,7 @@ public class JsoupParserExecutor<T> implements SelectorParser<T> {
     validate();
 
     String nextUrl = paginationStrategy.getSearchResultUrl();
-
-    while (!nextUrl.equals(paginationStrategy.getRootUrl())) {
+    while (!isNextUrlIsEqualWithRootUrl(nextUrl)) {   // ugly
       Document currentDocument = getDocument(nextUrl);
       Elements items = getElements(currentDocument);
 
@@ -50,19 +49,8 @@ public class JsoupParserExecutor<T> implements SelectorParser<T> {
     return result;
   }
 
-  private String getNextPageUrl(Document document) {
-    PaginationSelector selector = paginationStrategy.getPaginationSelector();
-    String concatenatedUrl = "";
-
-    if (paginationStrategy.getPaginationSelector().getAttributeName() == null) {
-      concatenatedUrl += document.select(selector.getPaginationTagSelector());
-    } else {
-      concatenatedUrl += document
-          .select(selector.getPaginationTagSelector())
-          .attr(selector.getAttributeName());
-    }
-
-    return paginationStrategy.getRootUrl() + concatenatedUrl;
+  private boolean isNextUrlIsEqualWithRootUrl(String nextUrl) {
+    return nextUrl.equals(paginationStrategy.getRootUrl());
   }
 
   private void validate() {
@@ -103,5 +91,20 @@ public class JsoupParserExecutor<T> implements SelectorParser<T> {
     }
 
     return object;
+  }
+
+  private String getNextPageUrl(Document document) {
+    PaginationSelector selector = paginationStrategy.getPaginationSelector();
+    String concatenatedUrl = "";
+
+    if (paginationStrategy.getPaginationSelector().getAttributeName() == null) {
+      concatenatedUrl += document.select(selector.getPaginationTagSelector());
+    } else {
+      concatenatedUrl += document
+          .select(selector.getPaginationTagSelector())
+          .attr(selector.getAttributeName());
+    }
+
+    return paginationStrategy.getRootUrl() + concatenatedUrl;
   }
 }
